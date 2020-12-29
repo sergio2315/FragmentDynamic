@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import com.example.fragmentexample157_1.databinding.FragmentLogoTriviaBinding;
 
 public class LogoTriviaFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "name";
     private String name;
     private  int choice; // opcion selecionada
 
@@ -91,36 +92,14 @@ public class LogoTriviaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if ( choice == 2){
-                    addWimFragment();
+                    Navigation.findNavController(binding.getRoot())
+                            .navigate(R.id.action_logoTriviaFragment_to_winFragment);
                 } else {
-                   addLoseFragment();
+                    Navigation.findNavController(binding.getRoot())
+                            .navigate(R.id.action_logoTriviaFragment_to_loseFragment);
                 }
             }
         });
 
     }
-
-    private void addWimFragment(){
-        WinFragment winFragment = WinFragment.newInstance();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
-                .replace(R.id.content_fragment, winFragment,
-                        WinFragment.class.getSimpleName())
-                .addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-    private void addLoseFragment(){
-        LoseFragment loseFragment = LoseFragment.newInstance();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
-                .replace(R.id.content_fragment, loseFragment,
-                        LoseFragment.class.getSimpleName())
-                .addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-
-    //TODO no olvidar pasar como argumento el nombre del jugador.
-
-
 }

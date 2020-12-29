@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,20 +91,33 @@ public class LogoTriviaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if ( choice == 2){
-                    //TODO poner el metodo de fragmento ganador
+                    addWimFragment();
                 } else {
-                    //TODO poner el metodo de fragmento perdedor.
+                   addLoseFragment();
                 }
             }
         });
 
     }
 
-    //Todo crear metodo para ir al fragmento ganador
-
-
-
-    //Todo crear el metodo para ir al fragmento perdedor.
+    private void addWimFragment(){
+        WinFragment winFragment = WinFragment.newInstance();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
+                .replace(R.id.content_fragment, winFragment,
+                        WinFragment.class.getSimpleName())
+                .addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+    private void addLoseFragment(){
+        LoseFragment loseFragment = LoseFragment.newInstance();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
+                .replace(R.id.content_fragment, loseFragment,
+                        LoseFragment.class.getSimpleName())
+                .addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
 
     //TODO no olvidar pasar como argumento el nombre del jugador.
